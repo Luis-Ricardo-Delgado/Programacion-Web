@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone | Luis Ricardo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h2 class="logo">GameZone</h2>
+        <div class="menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#juegos">Juegos</a>
+            <a href="#agregar">Agregar</a>
+            <a href="#sobre">Sobre el proyecto</a>
+        </div>
+        <button id="modo">🌙</button>
+    </nav>
+    <section class="hero" id="inicio">
+        <div>
+            <p class="etiqueta">PROYECTO WEB</p>
+            <h1>Mi espacio de videojuegos</h1>
+            <p>Un sitio donde puedo organizar algunos de mis videojuegos favoritos, buscar títulos y descubrir qué quiero jugar después.</p>
+            <a href="#juegos" class="boton">Explorar juegos</a>
+        </div>
+        <div class="control">🎮</div>
+    </section>
+</header>
+
+<main>
+<section class="seccion" id="juegos">
+    <div class="titulo">
+        <div>
+            <p class="etiqueta-roja">MI COLECCIÓN</p>
+            <h2>Videojuegos</h2>
+        </div>
+        <span id="contador">0 juegos encontrados</span>
+    </div>
+
+    <div class="herramientas">
+        <input type="text" id="buscador" placeholder="Buscar un videojuego...">
+        <select id="categoria">
+            <option value="todos">Todas las categorías</option>
+            <option value="accion">Acción</option>
+            <option value="aventura">Aventura</option>
+            <option value="deportes">Deportes</option>
+            <option value="carreras">Carreras</option>
+        </select>
+    </div>
+
+    <div class="juegos" id="listaJuegos">
+        <article class="juego" data-nombre="GTA VI" data-categoria="accion">
+            <div class="icono">🌴</div>
+            <span class="categoria">Acción</span>
+            <h3>GTA VI</h3>
+            <p>Uno de los videojuegos que más espero. Mundo abierto, exploración y muchas posibilidades.</p>
+            <button class="favorito">♡ Agregar a favoritos</button>
+        </article>
+
+        <article class="juego" data-nombre="Minecraft" data-categoria="aventura">
+            <div class="icono">⛏️</div>
+            <span class="categoria">Aventura</span>
+            <h3>Minecraft</h3>
+            <p>Un juego donde la creatividad permite construir, explorar y crear prácticamente cualquier cosa.</p>
+            <button class="favorito">♡ Agregar a favoritos</button>
+        </article>
+
+        <article class="juego" data-nombre="EA Sports FC" data-categoria="deportes">
+            <div class="icono">⚽</div>
+            <span class="categoria">Deportes</span>
+            <h3>EA Sports FC</h3>
+            <p>Una opción para jugar fútbol, competir con amigos y utilizar diferentes equipos.</p>
+            <button class="favorito">♡ Agregar a favoritos</button>
+        </article>
+
+        <article class="juego" data-nombre="Forza Horizon" data-categoria="carreras">
+            <div class="icono">🏎️</div>
+            <span class="categoria">Carreras</span>
+            <h3>Forza Horizon</h3>
+            <p>Carreras, vehículos y mapas abiertos para recorrer diferentes lugares.</p>
+            <button class="favorito">♡ Agregar a favoritos</button>
+        </article>
+    </div>
+    <p id="sinResultados">No se encontraron videojuegos.</p>
+</section>
+
+<section class="seccion agregar" id="agregar">
+    <div>
+        <p class="etiqueta-roja">PERSONALIZA LA PÁGINA</p>
+        <h2>Agregar un videojuego</h2>
+        <p>Utiliza este formulario para agregar otro videojuego a la colección.</p>
+    </div>
+
+    <form id="formJuego">
+        <label for="nombreJuego">Nombre</label>
+        <input type="text" id="nombreJuego" placeholder="Nombre del videojuego" required>
+
+        <label for="categoriaJuego">Categoría</label>
+        <select id="categoriaJuego">
+            <option value="accion">Acción</option>
+            <option value="aventura">Aventura</option>
+            <option value="deportes">Deportes</option>
+            <option value="carreras">Carreras</option>
+        </select>
+
+        <label for="descripcionJuego">Descripción</label>
+        <textarea id="descripcionJuego" placeholder="Escribe una descripción" required></textarea>
+
+        <button type="submit" class="boton">Agregar juego</button>
+    </form>
+</section>
+
+<section class="seccion sobre" id="sobre">
+    <p class="etiqueta-roja">DESARROLLO WEB</p>
+    <h2>Sobre el proyecto</h2>
+    <p>GameZone es un proyecto escolar desarrollado para poner en práctica diferentes conocimientos de programación web. La página utiliza HTML para organizar el contenido, CSS para crear el diseño visual y JavaScript para agregar interacción.</p>
+
+    <div class="tecnologias">
+        <div><strong>HTML</strong><span>Estructura</span></div>
+        <div><strong>CSS</strong><span>Diseño</span></div>
+        <div><strong>JavaScript</strong><span>Interacción</span></div>
+    </div>
+</section>
+</main>
+
+<footer>
+    <h3>GameZone</h3>
+    <p>Proyecto desarrollado por Luis Ricardo Delgado Sevilla</p>
+    <p>Ingeniería en Computación | CUCEI</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
