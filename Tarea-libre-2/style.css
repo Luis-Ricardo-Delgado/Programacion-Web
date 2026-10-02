@@ -1,0 +1,303 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #222;
+    transition: 0.3s;
+}
+header {
+    background: linear-gradient(135deg, #7f1d1d, #dc2626);
+    color: white;
+    padding: 20px 8% 80px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 28px;
+    margin: 0;
+}
+.menu {
+    display: flex;
+    gap: 25px;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.menu a:hover {
+    color: #fbbf24;
+}
+#modo {
+    border: none;
+    background: white;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+.hero div:first-child {
+    max-width: 650px;
+}
+.hero h1 {
+    font-size: 55px;
+    margin: 10px 0;
+}
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+.etiqueta {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+.control {
+    font-size: 160px;
+}
+.boton {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 25px;
+    background: #f59e0b;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+.boton:hover {
+    background: #d97706;
+}
+.seccion {
+    padding: 70px 8%;
+}
+.seccion h2 {
+    font-size: 35px;
+    margin-top: 5px;
+}
+.etiqueta-roja {
+    color: #b91c1c;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#contador {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+.herramientas {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0 35px;
+}
+.herramientas input,
+.herramientas select {
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+.herramientas input {
+    flex: 1;
+}
+.juegos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+.juego {
+    flex: 1 1 250px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+}
+.juego:hover {
+    transform: translateY(-7px);
+}
+.icono {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+.categoria {
+    display: inline-block;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.juego h3 {
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+.juego p {
+    color: #555;
+    min-height: 75px;
+}
+.favorito {
+    border: 1px solid #b91c1c;
+    background: transparent;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 100%;
+}
+.favorito:hover,
+.favorito.activo {
+    background: #b91c1c;
+    color: white;
+}
+#sinResultados {
+    display: none;
+    text-align: center;
+    margin-top: 40px;
+}
+.agregar {
+    background: #f3e8e8;
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+.agregar > div,
+.agregar form {
+    flex: 1;
+}
+form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+form label {
+    display: block;
+    margin: 15px 0 7px;
+    font-weight: bold;
+}
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+}
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.sobre {
+    text-align: center;
+    max-width: 1000px;
+    margin: auto;
+}
+.sobre > p {
+    line-height: 1.8;
+}
+.tecnologias {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+}
+.tecnologias div {
+    background: white;
+    padding: 25px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+.tecnologias strong,
+.tecnologias span {
+    display: block;
+}
+.tecnologias strong {
+    color: #b91c1c;
+    font-size: 20px;
+}
+footer {
+    background: #7f1d1d;
+    color: white;
+    text-align: center;
+    padding: 35px;
+}
+.oscuro {
+    background: #111827;
+    color: #f9fafb;
+}
+.oscuro .juego,
+.oscuro form,
+.oscuro .tecnologias div {
+    background: #1f2937;
+}
+.oscuro .juego p {
+    color: #d1d5db;
+}
+.oscuro .agregar {
+    background: #171f2c;
+}
+.oscuro input,
+.oscuro select,
+.oscuro textarea {
+    background: #374151;
+    color: white;
+    border-color: #4b5563;
+}
+@media (max-width: 750px) {
+    nav, .hero, .agregar {
+        flex-direction: column;
+    }
+    nav {
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .menu {
+        flex-wrap: wrap;
+    }
+    .hero h1 {
+        font-size: 38px;
+    }
+    .control {
+        font-size: 100px;
+    }
+    .herramientas {
+        flex-direction: column;
+    }
+    .titulo {
+        display: block;
+    }
+    .tecnologias {
+        flex-direction: column;
+    }
+}
