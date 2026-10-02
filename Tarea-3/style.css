@@ -1,0 +1,220 @@
+/* Luis Ricardo Delgado Sevilla */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0b3d91, #1e88e5, #6ec6ff);
+    padding: 40px 20px;
+    transition: 0.3s;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.encabezado h1 {
+    color: #0b3d91;
+    margin-bottom: 5px;
+}
+
+.encabezado p {
+    color: #777;
+}
+
+#modo {
+    background: #0b3d91;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+}
+
+.formulario input,
+.formulario select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+    border-color: #1e88e5;
+}
+
+#agregar {
+    grid-column: 1 / -1;
+    padding: 13px;
+    border: none;
+    background: #1565c0;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#agregar:hover {
+    background: #0d47a1;
+}
+
+.filtros {
+    display: flex;
+    gap: 8px;
+    margin: 25px 0 15px;
+    flex-wrap: wrap;
+}
+
+.filtros button {
+    border: none;
+    background: #e3f2fd;
+    color: #0d47a1;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.filtros button:hover {
+    background: #bbdefb;
+}
+
+.tarea {
+    background: #f4f8ff;
+    border-left: 5px solid #1976d2;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.tarea h3 {
+    color: #222;
+    margin-bottom: 7px;
+}
+
+.tarea p {
+    color: #666;
+    font-size: 14px;
+}
+
+.botones {
+    display: flex;
+    gap: 7px;
+}
+
+.botones button {
+    border: none;
+    padding: 8px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.completar {
+    background: #43a047;
+    color: white;
+}
+
+.editar {
+    background: #ffb300;
+    color: white;
+}
+
+.eliminar {
+    background: #e53935;
+    color: white;
+}
+
+.completada {
+    opacity: 0.6;
+}
+
+.completada h3 {
+    text-decoration: line-through;
+}
+
+.vencida {
+    border-left-color: #e53935;
+}
+
+.eliminando {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+body.oscuro {
+    background: linear-gradient(135deg, #06162b, #102a43, #1b3a57);
+}
+
+body.oscuro .contenedor {
+    background: #17212b;
+}
+
+body.oscuro h1 {
+    color: #64b5f6;
+}
+
+body.oscuro .encabezado p {
+    color: #bbb;
+}
+
+body.oscuro .tarea {
+    background: #243447;
+}
+
+body.oscuro .tarea h3 {
+    color: white;
+}
+
+body.oscuro .tarea p {
+    color: #ccc;
+}
+
+body.oscuro input,
+body.oscuro select {
+    background: #243447;
+    color: white;
+    border-color: #455a64;
+}
+
+@media (max-width: 700px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .tarea {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
