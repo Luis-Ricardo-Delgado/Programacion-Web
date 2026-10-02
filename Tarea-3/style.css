@@ -1,213 +1,281 @@
 /* Luis Ricardo Delgado Sevilla */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0b3d91, #1e88e5, #6ec6ff);
-    padding: 40px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #114e9f, #43b5f5);
+    color: #1e293b;
     transition: 0.3s;
 }
 
 .contenedor {
-    width: 100%;
+    width: 92%;
     max-width: 850px;
-    margin: auto;
+    margin: 35px auto;
+}
+
+.panel {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    padding: 28px;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 .encabezado {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    justify-content: space-between;
 }
 
 .encabezado h1 {
-    color: #0b3d91;
-    margin-bottom: 5px;
+    margin: 0;
+    color: #124da0;
+    font-size: 32px;
 }
 
 .encabezado p {
-    color: #777;
+    margin: 7px 0 0;
+    color: #64748b;
 }
 
-#modo {
-    background: #0b3d91;
-    color: white;
-    border: none;
+.modo {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    cursor: pointer;
+    border: none;
+    background: #124da0;
+    color: white;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .formulario {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: 10px;
+    margin-top: 25px;
 }
 
-.formulario input,
-.formulario select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+input,
+select {
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
     outline: none;
 }
 
-.formulario input:focus,
-.formulario select:focus {
-    border-color: #1e88e5;
+input:focus,
+select:focus {
+    border-color: #2672c9;
 }
 
-#agregar {
-    grid-column: 1 / -1;
+.boton-agregar {
+    width: 100%;
+    margin-top: 10px;
     padding: 13px;
     border: none;
-    background: #1565c0;
+    border-radius: 9px;
+    background: #1f70c9;
     color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
     font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-#agregar:hover {
-    background: #0d47a1;
+.boton-agregar:hover {
+    background: #1258a8;
+    transform: translateY(-1px);
 }
 
 .filtros {
+    margin-top: 22px;
     display: flex;
     gap: 8px;
-    margin: 25px 0 15px;
     flex-wrap: wrap;
 }
 
-.filtros button {
+.filtro {
     border: none;
-    background: #e3f2fd;
-    color: #0d47a1;
-    padding: 8px 14px;
     border-radius: 20px;
+    padding: 8px 15px;
+    background: #e5f2fd;
+    color: #15589e;
     cursor: pointer;
 }
 
-.filtros button:hover {
-    background: #bbdefb;
+.filtro.activo {
+    background: #1769bd;
+    color: white;
 }
 
-.tarea {
-    background: #f4f8ff;
-    border-left: 5px solid #1976d2;
-    padding: 15px;
-    margin-top: 12px;
-    border-radius: 10px;
+.contenido {
+    margin-top: 25px;
+}
+
+.titulo-seccion {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: 0.4s;
+    color: white;
 }
 
-.tarea h3 {
-    color: #222;
-    margin-bottom: 7px;
-}
-
-.tarea p {
-    color: #666;
+#contador {
     font-size: 14px;
 }
 
-.botones {
+.tarea {
+    background: white;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 12px;
     display: flex;
-    gap: 7px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+    transition: 0.35s;
 }
 
-.botones button {
+.tarea-info {
+    flex: 1;
+}
+
+.tarea-info h3 {
+    margin: 0 0 8px;
+}
+
+.tarea-info p {
+    margin: 5px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.etiqueta {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.escuela {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.trabajo {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.personal {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.acciones button {
     border: none;
-    padding: 8px 10px;
-    border-radius: 7px;
+    border-radius: 8px;
+    padding: 9px 12px;
     cursor: pointer;
-}
-
-.completar {
-    background: #43a047;
-    color: white;
+    font-weight: bold;
 }
 
 .editar {
-    background: #ffb300;
-    color: white;
+    background: #fbbf24;
+    color: #422006;
 }
 
 .eliminar {
-    background: #e53935;
+    background: #ef4444;
     color: white;
 }
 
-.completada {
-    opacity: 0.6;
+.vacia {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 22px;
+    text-align: center;
+    border-radius: 15px;
+    color: #64748b;
 }
 
-.completada h3 {
-    text-decoration: line-through;
+.proximas {
+    margin-top: 30px;
 }
 
-.vencida {
-    border-left-color: #e53935;
+.proximas h2 {
+    color: white;
+}
+
+.proxima {
+    background: #fff7ed;
+    border-left: 5px solid #f97316;
+    border-radius: 10px;
+    padding: 13px;
+    margin-bottom: 9px;
 }
 
 .eliminando {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateX(150px) scale(0.9);
 }
 
 body.oscuro {
-    background: linear-gradient(135deg, #06162b, #102a43, #1b3a57);
-}
-
-body.oscuro .contenedor {
-    background: #17212b;
-}
-
-body.oscuro h1 {
-    color: #64b5f6;
-}
-
-body.oscuro .encabezado p {
-    color: #bbb;
-}
-
-body.oscuro .tarea {
-    background: #243447;
-}
-
-body.oscuro .tarea h3 {
+    background: linear-gradient(135deg, #071426, #172554);
     color: white;
 }
 
-body.oscuro .tarea p {
-    color: #ccc;
+body.oscuro .panel,
+body.oscuro .tarea {
+    background: #172033;
+    color: white;
+}
+
+body.oscuro .encabezado h1 {
+    color: #60a5fa;
+}
+
+body.oscuro .encabezado p,
+body.oscuro .tarea-info p {
+    color: #cbd5e1;
 }
 
 body.oscuro input,
 body.oscuro select {
-    background: #243447;
+    background: #263449;
     color: white;
-    border-color: #455a64;
+    border-color: #475569;
+}
+
+body.oscuro .modo {
+    background: white;
+    color: #111827;
+}
+
+body.oscuro .vacia {
+    background: #172033;
+    color: #cbd5e1;
+}
+
+body.oscuro .proxima {
+    background: #292524;
+    color: white;
 }
 
 @media (max-width: 700px) {
+
     .formulario {
         grid-template-columns: 1fr;
     }
@@ -216,5 +284,17 @@ body.oscuro select {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
+    }
+
+    .acciones {
+        width: 100%;
+    }
+
+    .acciones button {
+        flex: 1;
+    }
+
+    .encabezado h1 {
+        font-size: 26px;
     }
 }
