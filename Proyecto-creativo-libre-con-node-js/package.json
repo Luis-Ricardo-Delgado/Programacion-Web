@@ -1,0 +1,12 @@
+{
+  "name": "focusforge",
+  "version": "1.0.0",
+  "description": "Aplicación web para registrar sesiones de estudio y visualizar progreso.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
