@@ -158,7 +158,340 @@
 
     </main>
 
-    <script src="script.js"></script>
+    <script>
+// Luis Ricardo Delgado Sevilla
+
+const textoTarea = document.getElementById("textoTarea");
+const fechaTarea = document.getElementById("fechaTarea");
+const categoriaTarea = document.getElementById("categoriaTarea");
+
+const botonAgregar = document.getElementById("agregarTarea");
+const botonModo = document.getElementById("botonModo");
+
+const listaTareas = document.getElementById("listaTareas");
+const listaProximas = document.getElementById("listaProximas");
+
+const contador = document.getElementById("contador");
+const totalTareas = document.getElementById("totalTareas");
+const totalProximas = document.getElementById("totalProximas");
+
+let tareas = JSON.parse(localStorage.getItem("tareasLuis")) || [];
+let filtroActual = "Todas";
+
+
+function guardarTareas() {
+    localStorage.setItem("tareasLuis", JSON.stringify(tareas));
+}
+
+
+function agregarTarea() {
+
+    const texto = textoTarea.value.trim();
+
+    if (texto === "") {
+        alert("Escribe una tarea.");
+        return;
+    }
+
+    const nuevaTarea = {
+        id: Date.now(),
+        texto: texto,
+        fecha: fechaTarea.value,
+        categoria: categoriaTarea.value
+    };
+
+    tareas.push(nuevaTarea);
+
+    guardarTareas();
+
+    textoTarea.value = "";
+    fechaTarea.value = "";
+
+    mostrarTareas();
+}
+
+
+function mostrarTareas() {
+
+    listaTareas.innerHTML = "";
+
+    let filtradas = tareas;
+
+    if (filtroActual !== "Todas") {
+        filtradas = tareas.filter(
+            tarea => tarea.categoria === filtroActual
+        );
+    }
+
+
+    totalTareas.textContent = tareas.length;
+
+    contador.textContent =
+        tareas.length === 1
+        ? "1 tarea"
+        : tareas.length + " tareas";
+
+
+    if (filtradas.length === 0) {
+
+        listaTareas.innerHTML = `
+            <div class="vacio">
+                No hay tareas en esta categoría.
+            </div>
+        `;
+
+    } else {
+
+        filtradas.forEach(tarea => {
+
+            const tarjeta = document.createElement("div");
+
+            tarjeta.className = "tarea";
+
+            const fecha =
+                tarea.fecha
+                ? formatearFecha(tarea.fecha)
+                : "Sin fecha límite";
+
+
+            tarjeta.innerHTML = `
+                <div class="tarea-info">
+
+                    <h3>${tarea.texto}</h3>
+
+                    <div class="detalles-tarea">
+
+                        <span class="fecha">
+                            📅 ${fecha}
+                        </span>
+
+                        <span class="categoria ${tarea.categoria}">
+                            ${tarea.categoria}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="acciones">
+
+                    <button
+                        class="editar"
+                        onclick="editarTarea(${tarea.id})">
+                        ✏️ Editar
+                    </button>
+
+                    <button
+                        class="eliminar"
+                        onclick="eliminarTarea(${tarea.id}, this)">
+                        🗑️ Eliminar
+                    </button>
+
+                </div>
+            `;
+
+            listaTareas.appendChild(tarjeta);
+        });
+    }
+
+    mostrarProximas();
+}
+
+
+function editarTarea(id) {
+
+    const tarea = tareas.find(
+        tarea => tarea.id === id
+    );
+
+    if (!tarea) {
+        return;
+    }
+
+    const nuevoTexto = prompt(
+        "Edita la tarea:",
+        tarea.texto
+    );
+
+    if (nuevoTexto === null) {
+        return;
+    }
+
+    if (nuevoTexto.trim() === "") {
+        alert("La tarea no puede estar vacía.");
+        return;
+    }
+
+    tarea.texto = nuevoTexto.trim();
+
+    guardarTareas();
+
+    mostrarTareas();
+}
+
+
+function eliminarTarea(id, boton) {
+
+    const tarjeta = boton.closest(".tarea");
+
+    tarjeta.classList.add("eliminando");
+
+    setTimeout(() => {
+
+        tareas = tareas.filter(
+            tarea => tarea.id !== id
+        );
+
+        guardarTareas();
+
+        mostrarTareas();
+
+    }, 350);
+}
+
+
+function mostrarProximas() {
+
+    listaProximas.innerHTML = "";
+
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+
+    const proximas = tareas.filter(tarea => {
+
+        if (!tarea.fecha) {
+            return false;
+        }
+
+        const fecha = new Date(
+            tarea.fecha + "T00:00:00"
+        );
+
+        const diferencia = fecha - hoy;
+
+        const dias =
+            diferencia / (1000 * 60 * 60 * 24);
+
+        return dias >= 0 && dias <= 3;
+    });
+
+
+    totalProximas.textContent = proximas.length;
+
+
+    if (proximas.length === 0) {
+
+        listaProximas.innerHTML = `
+            <div class="vacio">
+                No tienes tareas próximas a vencer.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    proximas.forEach(tarea => {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "proxima";
+
+        tarjeta.innerHTML = `
+            <strong>
+                ⏰ ${tarea.texto}
+            </strong>
+
+            <p>
+                Vence el ${formatearFecha(tarea.fecha)}
+                · ${tarea.categoria}
+            </p>
+        `;
+
+        listaProximas.appendChild(tarjeta);
+    });
+}
+
+
+function formatearFecha(fecha) {
+
+    const partes = fecha.split("-");
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+
+document
+.querySelectorAll(".filtro")
+.forEach(boton => {
+
+    boton.addEventListener("click", function() {
+
+        document
+        .querySelectorAll(".filtro")
+        .forEach(b => {
+            b.classList.remove("activo");
+        });
+
+        this.classList.add("activo");
+
+        filtroActual = this.dataset.filtro;
+
+        mostrarTareas();
+    });
+});
+
+
+botonAgregar.addEventListener("click", agregarTarea);
+
+
+textoTarea.addEventListener("keydown", function(evento) {
+
+    if (evento.key === "Enter") {
+        agregarTarea();
+    }
+});
+
+
+botonModo.addEventListener("click", function() {
+
+    document.body.classList.toggle("oscuro");
+
+    const oscuro =
+        document.body.classList.contains("oscuro");
+
+    if (oscuro) {
+
+        botonModo.textContent = "☀️";
+
+    } else {
+
+        botonModo.textContent = "🌙";
+
+    }
+
+    localStorage.setItem(
+        "modoOscuroLuis",
+        oscuro
+    );
+});
+
+
+if (localStorage.getItem("modoOscuroLuis") === "true") {
+
+    document.body.classList.add("oscuro");
+
+    botonModo.textContent = "☀️";
+}
+
+
+mostrarTareas();
+
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
