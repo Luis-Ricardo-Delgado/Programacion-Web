@@ -1,1 +1,58 @@
+<!-- Luis Ricardo Delgado Sevilla -->
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="juego">
+        <h1>🎯 Adivina el número</h1>
+
+        <p class="descripcion">
+            Estoy pensando un número aleatorio<br>
+            del 1 al 100. Tienes 10 intentos para adivinarlo.
+        </p>
+
+        <input
+            type="number"
+            id="numero"
+            min="1"
+            max="100"
+            placeholder="Escribe un número (1 - 100)"
+        >
+
+        <button id="intentar" onclick="comprobarNumero()">
+            Intentar
+        </button>
+
+        <section class="datos">
+            <div class="dato">
+                <span>🎯</span>
+                <p>Intentos restantes</p>
+                <strong id="intentos">10</strong>
+            </div>
+
+            <div class="dato">
+                <span>#</span>
+                <p>Números probados</p>
+                <strong id="probados">-</strong>
+            </div>
+        </section>
+
+        <div id="mensaje" class="mensaje">
+            Ingresa un número y comienza a jugar.
+        </div>
+
+        <button id="reiniciar" onclick="reiniciarJuego()">
+            ↻ Volver a jugar
+        </button>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
