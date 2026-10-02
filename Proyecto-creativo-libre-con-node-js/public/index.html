@@ -1,0 +1,367 @@
+<!-- Luis Ricardo Delgado Sevilla -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FocusForge</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="hero">
+
+        <nav>
+
+            <div class="brand">
+                FocusForge
+            </div>
+
+            <button
+                id="themeButton"
+                class="theme-button"
+            >
+                🌙
+            </button>
+
+        </nav>
+
+
+        <div class="hero-content">
+
+            <div>
+
+                <p class="eyebrow">
+                    ESTUDIO INTELIGENTE
+                </p>
+
+                <h1>
+                    Convierte tus horas de estudio
+                    en progreso visible.
+                </h1>
+
+                <p class="hero-text">
+                    Registra tus sesiones,
+                    revisa tus estadísticas
+                    y descubre en qué materias
+                    estás invirtiendo más tiempo.
+                </p>
+
+                <a
+                    href="#registro"
+                    class="primary-link"
+                >
+                    Registrar sesión
+                </a>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <span class="hero-icon">
+                    ⚡
+                </span>
+
+                <h3>
+                    Tu progreso importa
+                </h3>
+
+                <p>
+                    No necesitas estudiar más horas,
+                    sino conocer mejor cómo estudias.
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="stats">
+
+            <article class="stat-card">
+
+                <span>⏱️</span>
+
+                <div>
+                    <p>Tiempo total</p>
+                    <strong id="totalMinutes">
+                        0 min
+                    </strong>
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>📚</span>
+
+                <div>
+                    <p>Sesiones</p>
+                    <strong id="totalSessions">
+                        0
+                    </strong>
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>🏆</span>
+
+                <div>
+                    <p>Materia principal</p>
+
+                    <strong id="topSubject">
+                        Sin datos
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <span>🔋</span>
+
+                <div>
+
+                    <p>
+                        Energía promedio
+                    </p>
+
+                    <strong id="averageEnergy">
+                        0/5
+                    </strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <section class="grid">
+
+            <article
+                class="panel"
+                id="registro"
+            >
+
+                <p class="section-label">
+                    NUEVA SESIÓN
+                </p>
+
+                <h2>
+                    ¿Qué estudiaste hoy?
+                </h2>
+
+
+                <form id="sessionForm">
+
+                    <label>
+
+                        Materia
+
+                        <input
+                            id="subject"
+                            type="text"
+                            placeholder="Ej. Redes de Computadoras"
+                            required
+                        >
+
+                    </label>
+
+
+                    <div class="form-row">
+
+                        <label>
+
+                            Minutos
+
+                            <input
+                                id="minutes"
+                                type="number"
+                                min="1"
+                                max="600"
+                                value="25"
+                                required
+                            >
+
+                        </label>
+
+
+                        <label>
+
+                            Energía
+
+                            <select id="energy">
+
+                                <option value="1">
+                                    1 - Muy baja
+                                </option>
+
+                                <option value="2">
+                                    2 - Baja
+                                </option>
+
+                                <option
+                                    value="3"
+                                    selected
+                                >
+                                    3 - Normal
+                                </option>
+
+                                <option value="4">
+                                    4 - Buena
+                                </option>
+
+                                <option value="5">
+                                    5 - Excelente
+                                </option>
+
+                            </select>
+
+                        </label>
+
+                    </div>
+
+
+                    <label>
+
+                        Nota rápida
+
+                        <textarea
+                            id="notes"
+                            rows="4"
+                            placeholder="¿Qué avanzaste o qué se te dificultó?"
+                        ></textarea>
+
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Guardar sesión
+                    </button>
+
+                </form>
+
+            </article>
+
+
+            <article class="panel">
+
+                <p class="section-label">
+                    RECOMENDACIÓN
+                </p>
+
+                <h2>
+                    Focus Insight
+                </h2>
+
+
+                <div class="insight-box">
+
+                    <span>
+                        💡
+                    </span>
+
+                    <p id="recommendation">
+                        Registra tu primera sesión
+                        para recibir una recomendación.
+                    </p>
+
+                </div>
+
+
+                <div class="progress-area">
+
+                    <p>
+                        Distribución por materia
+                    </p>
+
+                    <div id="subjectBars"></div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <section class="history-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        HISTORIAL
+                    </p>
+
+                    <h2>
+                        Sesiones recientes
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="refreshButton"
+                    class="secondary-button"
+                >
+                    Actualizar
+                </button>
+
+            </div>
+
+
+            <div
+                id="sessionsList"
+                class="sessions-list"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            FocusForge · Proyecto Node.js ·
+            Luis Ricardo Delgado Sevilla
+        </p>
+
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
