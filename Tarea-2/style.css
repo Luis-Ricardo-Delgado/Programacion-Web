@@ -1,0 +1,170 @@
+/* Luis Ricardo Delgado Sevilla */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    background:
+        radial-gradient(circle at 10% 20%, #1167df 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, #075ee5 0%, transparent 28%),
+        linear-gradient(135deg, #031b46, #0645a5, #021638);
+}
+
+.juego {
+    width: 100%;
+    max-width: 620px;
+    padding: 45px;
+    text-align: center;
+    background: rgba(3, 27, 70, 0.92);
+    border: 2px solid #1682ff;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+h1::first-letter {
+    font-size: 46px;
+}
+
+.descripcion {
+    color: #d7e4f8;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+input {
+    width: 100%;
+    padding: 18px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    border: 2px solid #315d96;
+    background: #09275a;
+    color: white;
+    font-size: 18px;
+    outline: none;
+}
+
+input::placeholder {
+    color: #aabbd3;
+}
+
+input:focus {
+    border-color: #1d94ff;
+}
+
+button {
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+}
+
+#intentar {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #0879ff, #209cff);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+#intentar:hover {
+    transform: translateY(-2px);
+}
+
+.datos {
+    display: flex;
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.dato {
+    flex: 1;
+    min-height: 130px;
+    padding: 18px;
+    background: #09275a;
+    border: 1px solid #244d84;
+    border-radius: 16px;
+}
+
+.dato span {
+    display: block;
+    color: #258cff;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.dato p {
+    color: #d5e1f1;
+    margin-bottom: 8px;
+}
+
+.dato strong {
+    color: #258cff;
+    font-size: 32px;
+}
+
+#probados {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+.mensaje {
+    margin-top: 25px;
+    padding: 20px;
+    min-height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #09275a;
+    border: 1px solid #3c6499;
+    border-radius: 14px;
+    color: #e1eaff;
+    font-size: 17px;
+}
+
+#reiniciar {
+    margin-top: 25px;
+    padding: 14px 25px;
+    border-radius: 12px;
+    border: 1px solid #3b6091;
+    background: #102f60;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+#reiniciar:hover {
+    background: #17417c;
+}
+
+@media (max-width: 600px) {
+    .juego {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+
+    .datos {
+        flex-direction: column;
+    }
+}
