@@ -1,29 +1,32 @@
 // Luis Ricardo Delgado Sevilla
 
-const inputTarea = document.getElementById("tarea");
-const inputFecha = document.getElementById("fecha");
-const categoria = document.getElementById("categoria");
-const botonAgregar = document.getElementById("agregar");
-const lista = document.getElementById("lista");
+const textoTarea = document.getElementById("textoTarea");
+const fechaTarea = document.getElementById("fechaTarea");
+const categoriaTarea = document.getElementById("categoriaTarea");
+
+const botonAgregar = document.getElementById("agregarTarea");
+const listaTareas = document.getElementById("listaTareas");
+const listaProximas = document.getElementById("listaProximas");
+const contador = document.getElementById("contador");
 const botonModo = document.getElementById("modo");
 
-let tareas = [];
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 let filtroActual = "Todas";
 
-botonAgregar.addEventListener("click", agregarTarea);
 
-inputTarea.addEventListener("keypress", function(evento) {
-    if (evento.key === "Enter") {
-        agregarTarea();
-    }
-});
+function guardarTareas() {
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+}
+
 
 function agregarTarea() {
-    const texto = inputTarea.value.trim();
-    const fecha = inputFecha.value;
+
+    const texto = textoTarea.value.trim();
+    const fecha = fechaTarea.value;
+    const categoria = categoriaTarea.value;
 
     if (texto === "") {
-        alert("Escribe una tarea.");
+        alert("Escribe una tarea antes de agregarla.");
         return;
     }
 
@@ -31,139 +34,262 @@ function agregarTarea() {
         id: Date.now(),
         texto: texto,
         fecha: fecha,
-        categoria: categoria.value,
-        completada: false
+        categoria: categoria
     };
 
     tareas.push(nuevaTarea);
 
-    inputTarea.value = "";
-    inputFecha.value = "";
+    guardarTareas();
+
+    textoTarea.value = "";
+    fechaTarea.value = "";
 
     mostrarTareas();
 }
 
-function mostrarTareas() {
-    lista.innerHTML = "";
 
-    const tareasFiltradas = tareas.filter(function(tarea) {
-        return filtroActual === "Todas" || tarea.categoria === filtroActual;
+function mostrarTareas() {
+
+    listaTareas.innerHTML = "";
+
+    const filtradas = tareas.filter(tarea => {
+
+        if (filtroActual === "Todas") {
+            return true;
+        }
+
+        return tarea.categoria === filtroActual;
     });
 
-    if (tareasFiltradas.length === 0) {
-        lista.innerHTML = "<p>No hay tareas para mostrar.</p>";
-        return;
-    }
 
-    tareasFiltradas.forEach(function(tarea) {
-        const elemento = document.createElement("div");
+    contador.textContent =
+        tareas.length === 1
+            ? "1 tarea"
+            : tareas.length + " tareas";
 
-        elemento.className = "tarea";
 
-        if (tarea.completada) {
-            elemento.classList.add("completada");
-        }
+    if (filtradas.length === 0) {
 
-        if (estaVencida(tarea.fecha) && !tarea.completada) {
-            elemento.classList.add("vencida");
-        }
-
-        let fechaTexto = "Sin fecha límite";
-
-        if (tarea.fecha) {
-            fechaTexto = "Fecha límite: " + tarea.fecha;
-        }
-
-        elemento.innerHTML = `
-            <div>
-                <h3>${tarea.texto}</h3>
-                <p>${tarea.categoria} • ${fechaTexto}</p>
-            </div>
-
-            <div class="botones">
-                <button class="completar">✓</button>
-                <button class="editar">Editar</button>
-                <button class="eliminar">Eliminar</button>
+        listaTareas.innerHTML = `
+            <div class="vacia">
+                No hay tareas en esta categoría.
             </div>
         `;
 
-        elemento.querySelector(".completar").addEventListener("click", function() {
-            completarTarea(tarea.id);
-        });
+        mostrarProximas();
+        return;
+    }
 
-        elemento.querySelector(".editar").addEventListener("click", function() {
-            editarTarea(tarea.id);
-        });
 
-        elemento.querySelector(".eliminar").addEventListener("click", function() {
-            eliminarTarea(tarea.id, elemento);
-        });
+    filtradas.forEach(tarea => {
 
-        lista.appendChild(elemento);
+        const elemento = document.createElement("div");
+        elemento.className = "tarea";
+
+        const claseCategoria = tarea.categoria.toLowerCase();
+
+        elemento.innerHTML = `
+            <div class="tarea-info">
+
+                <h3>${tarea.texto}</h3>
+
+                <p>
+                    📅 ${
+                        tarea.fecha
+                            ? formatearFecha(tarea.fecha)
+                            : "Sin fecha límite"
+                    }
+                </p>
+
+                <span class="etiqueta ${claseCategoria}">
+                    ${tarea.categoria}
+                </span>
+
+            </div>
+
+            <div class="acciones">
+
+                <button
+                    class="editar"
+                    onclick="editarTarea(${tarea.id})">
+                    Editar
+                </button>
+
+                <button
+                    class="eliminar"
+                    onclick="eliminarTarea(${tarea.id}, this)">
+                    Eliminar
+                </button>
+
+            </div>
+        `;
+
+        listaTareas.appendChild(elemento);
     });
+
+    mostrarProximas();
 }
 
-function completarTarea(id) {
-    const tarea = tareas.find(function(tarea) {
-        return tarea.id === id;
-    });
-
-    tarea.completada = !tarea.completada;
-
-    mostrarTareas();
-}
 
 function editarTarea(id) {
-    const tarea = tareas.find(function(tarea) {
-        return tarea.id === id;
-    });
 
-    const nuevoTexto = prompt("Edita tu tarea:", tarea.texto);
+    const tarea = tareas.find(t => t.id === id);
 
-    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
-        tarea.texto = nuevoTexto.trim();
-        mostrarTareas();
+    if (!tarea) {
+        return;
     }
-}
 
-function eliminarTarea(id, elemento) {
-    elemento.classList.add("eliminando");
+    const nuevoTexto = prompt(
+        "Edita el nombre de la tarea:",
+        tarea.texto
+    );
 
-    setTimeout(function() {
-        tareas = tareas.filter(function(tarea) {
-            return tarea.id !== id;
-        });
+    if (nuevoTexto === null) {
+        return;
+    }
 
-        mostrarTareas();
-    }, 400);
-}
+    if (nuevoTexto.trim() === "") {
+        alert("La tarea no puede quedar vacía.");
+        return;
+    }
 
-function filtrar(categoriaSeleccionada) {
-    filtroActual = categoriaSeleccionada;
+    tarea.texto = nuevoTexto.trim();
+
+    guardarTareas();
     mostrarTareas();
 }
 
-function estaVencida(fecha) {
-    if (!fecha) {
-        return false;
-    }
+
+function eliminarTarea(id, boton) {
+
+    const elemento = boton.closest(".tarea");
+
+    elemento.classList.add("eliminando");
+
+    setTimeout(() => {
+
+        tareas = tareas.filter(tarea => tarea.id !== id);
+
+        guardarTareas();
+        mostrarTareas();
+
+    }, 350);
+}
+
+
+function mostrarProximas() {
+
+    listaProximas.innerHTML = "";
 
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0);
 
-    const limite = new Date(fecha + "T00:00:00");
+    const proximas = tareas
+        .filter(tarea => {
 
-    return limite < hoy;
+            if (!tarea.fecha) {
+                return false;
+            }
+
+            const fecha = new Date(tarea.fecha + "T00:00:00");
+
+            const diferencia = fecha - hoy;
+
+            const dias =
+                diferencia / (1000 * 60 * 60 * 24);
+
+            return dias >= 0 && dias <= 3;
+        })
+        .sort((a, b) => {
+            return new Date(a.fecha) - new Date(b.fecha);
+        });
+
+
+    if (proximas.length === 0) {
+
+        listaProximas.innerHTML = `
+            <div class="vacia">
+                No hay tareas próximas a vencer.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    proximas.forEach(tarea => {
+
+        const elemento = document.createElement("div");
+        elemento.className = "proxima";
+
+        elemento.innerHTML = `
+            <strong>${tarea.texto}</strong>
+            <br>
+            Vence: ${formatearFecha(tarea.fecha)}
+        `;
+
+        listaProximas.appendChild(elemento);
+    });
 }
 
-botonModo.addEventListener("click", function() {
+
+function formatearFecha(fecha) {
+
+    const partes = fecha.split("-");
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+
+document.querySelectorAll(".filtro").forEach(boton => {
+
+    boton.addEventListener("click", () => {
+
+        document.querySelectorAll(".filtro")
+            .forEach(b => b.classList.remove("activo"));
+
+        boton.classList.add("activo");
+
+        filtroActual = boton.dataset.filtro;
+
+        mostrarTareas();
+    });
+});
+
+
+botonModo.addEventListener("click", () => {
+
     document.body.classList.toggle("oscuro");
 
-    if (document.body.classList.contains("oscuro")) {
-        botonModo.textContent = "☀️";
-    } else {
-        botonModo.textContent = "🌙";
+    const oscuro =
+        document.body.classList.contains("oscuro");
+
+    botonModo.textContent =
+        oscuro ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "modoOscuro",
+        oscuro
+    );
+});
+
+
+if (localStorage.getItem("modoOscuro") === "true") {
+
+    document.body.classList.add("oscuro");
+    botonModo.textContent = "☀️";
+}
+
+
+botonAgregar.addEventListener("click", agregarTarea);
+
+
+textoTarea.addEventListener("keydown", event => {
+
+    if (event.key === "Enter") {
+        agregarTarea();
     }
 });
+
 
 mostrarTareas();
