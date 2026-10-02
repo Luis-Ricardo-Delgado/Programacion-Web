@@ -5,57 +5,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tareas</title>
+    <title>Mi Lista de Tareas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="contenedor">
+    <main class="contenedor">
 
-        <div class="encabezado">
-            <div>
-                <h1>Mi Lista de Tareas</h1>
-                <p>Organiza tus actividades de manera sencilla.</p>
+        <section class="panel">
+
+            <div class="encabezado">
+                <div>
+                    <h1>Mi Lista de Tareas</h1>
+                    <p>Organiza tus actividades de manera sencilla.</p>
+                </div>
+
+                <button id="modo" class="modo">🌙</button>
             </div>
 
-            <button id="modo">🌙</button>
-        </div>
+            <div class="formulario">
 
-        <div class="formulario">
+                <input
+                    type="text"
+                    id="textoTarea"
+                    placeholder="Escribe una nueva tarea..."
+                >
 
-            <input
-                type="text"
-                id="tarea"
-                placeholder="Escribe una nueva tarea..."
-            >
+                <input
+                    type="date"
+                    id="fechaTarea"
+                >
 
-            <input
-                type="date"
-                id="fecha"
-            >
+                <select id="categoriaTarea">
+                    <option value="Escuela">Escuela</option>
+                    <option value="Trabajo">Trabajo</option>
+                    <option value="Personal">Personal</option>
+                </select>
 
-            <select id="categoria">
-                <option value="Escuela">Escuela</option>
-                <option value="Trabajo">Trabajo</option>
-                <option value="Personal">Personal</option>
-                <option value="Otro">Otro</option>
-            </select>
+            </div>
 
-            <button id="agregar">+ Agregar tarea</button>
+            <button id="agregarTarea" class="boton-agregar">
+                + Agregar tarea
+            </button>
 
-        </div>
+            <div class="filtros">
 
-        <div class="filtros">
-            <button onclick="filtrar('Todas')">Todas</button>
-            <button onclick="filtrar('Escuela')">Escuela</button>
-            <button onclick="filtrar('Trabajo')">Trabajo</button>
-            <button onclick="filtrar('Personal')">Personal</button>
-        </div>
+                <button class="filtro activo" data-filtro="Todas">
+                    Todas
+                </button>
 
-        <div id="lista"></div>
+                <button class="filtro" data-filtro="Escuela">
+                    Escuela
+                </button>
 
-    </div>
+                <button class="filtro" data-filtro="Trabajo">
+                    Trabajo
+                </button>
+
+                <button class="filtro" data-filtro="Personal">
+                    Personal
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="contenido">
+
+            <div class="titulo-seccion">
+                <h2>Mis tareas</h2>
+                <span id="contador">0 tareas</span>
+            </div>
+
+            <div id="listaTareas"></div>
+
+
+            <div class="proximas">
+
+                <h2>Próximas a vencer</h2>
+
+                <div id="listaProximas"></div>
+
+            </div>
+
+        </section>
+
+    </main>
 
     <script src="script.js"></script>
 
