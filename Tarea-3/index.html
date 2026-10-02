@@ -1,0 +1,63 @@
+<!-- Luis Ricardo Delgado Sevilla -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <div class="encabezado">
+            <div>
+                <h1>Mi Lista de Tareas</h1>
+                <p>Organiza tus actividades de manera sencilla.</p>
+            </div>
+
+            <button id="modo">🌙</button>
+        </div>
+
+        <div class="formulario">
+
+            <input
+                type="text"
+                id="tarea"
+                placeholder="Escribe una nueva tarea..."
+            >
+
+            <input
+                type="date"
+                id="fecha"
+            >
+
+            <select id="categoria">
+                <option value="Escuela">Escuela</option>
+                <option value="Trabajo">Trabajo</option>
+                <option value="Personal">Personal</option>
+                <option value="Otro">Otro</option>
+            </select>
+
+            <button id="agregar">+ Agregar tarea</button>
+
+        </div>
+
+        <div class="filtros">
+            <button onclick="filtrar('Todas')">Todas</button>
+            <button onclick="filtrar('Escuela')">Escuela</button>
+            <button onclick="filtrar('Trabajo')">Trabajo</button>
+            <button onclick="filtrar('Personal')">Personal</button>
+        </div>
+
+        <div id="lista"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
