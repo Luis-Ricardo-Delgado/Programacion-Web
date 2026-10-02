@@ -5,89 +5,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tareas</title>
+    <title>Mi Lista de Tareas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="contenedor">
+    <main class="app">
 
-        <div class="encabezado">
-            <div>
-                <h1>Lista de Tareas</h1>
-                <p>Organiza tus actividades de manera sencilla</p>
+        <section class="panel-principal">
+
+            <div class="encabezado">
+
+                <div>
+                    <p class="subtitulo">ORGANIZADOR PERSONAL</p>
+                    <h1>Mi Lista de Tareas</h1>
+                    <p class="descripcion">
+                        Organiza tus pendientes y lleva el control de tus actividades.
+                    </p>
+                </div>
+
+                <button id="botonModo" class="boton-modo" title="Cambiar modo">
+                    🌙
+                </button>
+
             </div>
 
-            <button id="modoOscuro">🌙</button>
-        </div>
 
-        <div class="formulario">
+            <div class="formulario">
 
-            <input
-                type="text"
-                id="nombreTarea"
-                placeholder="Escribe una tarea..."
-            >
+                <div class="campo tarea-campo">
+                    <label for="textoTarea">Nueva tarea</label>
 
-            <input
-                type="date"
-                id="fechaTarea"
-            >
+                    <input
+                        type="text"
+                        id="textoTarea"
+                        placeholder="Ej. Terminar tarea de programación"
+                    >
+                </div>
 
-            <select id="categoriaTarea">
-                <option value="Escuela">Escuela</option>
-                <option value="Trabajo">Trabajo</option>
-                <option value="Personal">Personal</option>
-            </select>
 
-            <button id="agregarTarea">
-                Agregar tarea
+                <div class="campo">
+
+                    <label for="fechaTarea">Fecha límite</label>
+
+                    <input
+                        type="date"
+                        id="fechaTarea"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="categoriaTarea">Categoría</label>
+
+                    <select id="categoriaTarea">
+                        <option value="Escuela">📚 Escuela</option>
+                        <option value="Trabajo">💼 Trabajo</option>
+                        <option value="Personal">🏠 Personal</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button id="agregarTarea" class="boton-agregar">
+                ＋ Agregar nueva tarea
             </button>
 
-        </div>
 
-        <div class="filtros">
+            <div class="filtros">
 
-            <button class="filtro activo" data-categoria="Todas">
-                Todas
-            </button>
+                <span>Mostrar:</span>
 
-            <button class="filtro" data-categoria="Escuela">
-                Escuela
-            </button>
+                <button class="filtro activo" data-filtro="Todas">
+                    Todas
+                </button>
 
-            <button class="filtro" data-categoria="Trabajo">
-                Trabajo
-            </button>
+                <button class="filtro" data-filtro="Escuela">
+                    Escuela
+                </button>
 
-            <button class="filtro" data-categoria="Personal">
-                Personal
-            </button>
+                <button class="filtro" data-filtro="Trabajo">
+                    Trabajo
+                </button>
 
-        </div>
+                <button class="filtro" data-filtro="Personal">
+                    Personal
+                </button>
 
-        <div class="seccion">
+            </div>
 
-            <div class="titulo">
-                <h2>Mis tareas</h2>
+        </section>
+
+
+        <section class="resumen">
+
+            <div class="tarjeta-resumen">
+                <span class="icono-resumen">📋</span>
+
+                <div>
+                    <p>Total de tareas</p>
+                    <strong id="totalTareas">0</strong>
+                </div>
+            </div>
+
+
+            <div class="tarjeta-resumen">
+                <span class="icono-resumen">⏰</span>
+
+                <div>
+                    <p>Próximas a vencer</p>
+                    <strong id="totalProximas">0</strong>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="seccion-tareas">
+
+            <div class="titulo-seccion">
+                <div>
+                    <p class="subtitulo-seccion">TUS ACTIVIDADES</p>
+                    <h2>Mis tareas</h2>
+                </div>
+
                 <span id="contador">0 tareas</span>
             </div>
 
-            <div id="listaTareas"></div>
 
-        </div>
+            <div id="listaTareas" class="lista-tareas"></div>
+
+        </section>
 
 
-        <div class="seccion">
+        <section class="seccion-proximas">
 
-            <h2>Próximas a vencer</h2>
+            <div class="titulo-seccion">
+                <div>
+                    <p class="subtitulo-seccion">RECORDATORIOS</p>
+                    <h2>Próximas a vencer</h2>
+                </div>
+            </div>
 
-            <div id="proximasTareas"></div>
+            <div id="listaProximas"></div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
     <script src="script.js"></script>
 
