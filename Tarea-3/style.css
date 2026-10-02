@@ -6,144 +6,127 @@
 
 body {
     margin: 0;
+    font-family: Arial, sans-serif;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #114e9f, #43b5f5);
-    color: #1e293b;
+    background: linear-gradient(135deg, #1554a1, #42b4f5);
+    color: #1f2937;
     transition: 0.3s;
 }
 
 .contenedor {
-    width: 92%;
+    width: 90%;
     max-width: 850px;
-    margin: 35px auto;
-}
-
-.panel {
-    background: white;
-    padding: 28px;
-    border-radius: 22px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    margin: 40px auto;
 }
 
 .encabezado {
+    background: white;
+    padding: 25px;
+    border-radius: 18px 18px 0 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .encabezado h1 {
     margin: 0;
-    color: #124da0;
-    font-size: 32px;
+    color: #1554a1;
 }
 
 .encabezado p {
-    margin: 7px 0 0;
-    color: #64748b;
+    margin: 5px 0 0;
+    color: #6b7280;
 }
 
-.modo {
+#modoOscuro {
+    border: none;
+    background: #1554a1;
+    color: white;
+    font-size: 20px;
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: none;
-    background: #124da0;
-    color: white;
-    font-size: 20px;
     cursor: pointer;
 }
 
 .formulario {
+    background: white;
+    padding: 20px 25px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     gap: 10px;
-    margin-top: 25px;
 }
 
 input,
 select {
-    padding: 13px;
+    padding: 12px;
     border: 1px solid #cbd5e1;
-    border-radius: 9px;
+    border-radius: 8px;
     font-size: 14px;
-    outline: none;
 }
 
-input:focus,
-select:focus {
-    border-color: #2672c9;
-}
-
-.boton-agregar {
-    width: 100%;
-    margin-top: 10px;
-    padding: 13px;
+#agregarTarea {
+    grid-column: 1 / 4;
+    padding: 12px;
     border: none;
-    border-radius: 9px;
-    background: #1f70c9;
+    background: #2673c9;
     color: white;
+    border-radius: 8px;
     font-weight: bold;
-    font-size: 15px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.boton-agregar:hover {
-    background: #1258a8;
-    transform: translateY(-1px);
+#agregarTarea:hover {
+    background: #1554a1;
 }
 
 .filtros {
-    margin-top: 22px;
+    background: white;
+    padding: 10px 25px 25px;
+    border-radius: 0 0 18px 18px;
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
 }
 
 .filtro {
     border: none;
+    background: #e4f0fb;
+    color: #1554a1;
+    padding: 8px 14px;
     border-radius: 20px;
-    padding: 8px 15px;
-    background: #e5f2fd;
-    color: #15589e;
     cursor: pointer;
 }
 
 .filtro.activo {
-    background: #1769bd;
+    background: #2673c9;
     color: white;
 }
 
-.contenido {
+.seccion {
     margin-top: 25px;
 }
 
-.titulo-seccion {
+.titulo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
 }
 
+.seccion h2,
 #contador {
-    font-size: 14px;
+    color: white;
 }
 
 .tarea {
     background: white;
-    border-radius: 15px;
     padding: 18px;
+    border-radius: 12px;
     margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
-    transition: 0.35s;
-}
-
-.tarea-info {
-    flex: 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: 0.4s;
 }
 
 .tarea-info h3 {
@@ -151,51 +134,50 @@ select:focus {
 }
 
 .tarea-info p {
-    margin: 5px 0;
-    color: #64748b;
-    font-size: 14px;
+    margin: 4px 0;
+    color: #6b7280;
 }
 
-.etiqueta {
+.categoria {
     display: inline-block;
+    margin-top: 5px;
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: bold;
-    margin-top: 4px;
 }
 
-.escuela {
+.Escuela {
     background: #dbeafe;
     color: #1d4ed8;
 }
 
-.trabajo {
+.Trabajo {
     background: #dcfce7;
     color: #15803d;
 }
 
-.personal {
+.Personal {
     background: #fce7f3;
     color: #be185d;
 }
 
-.acciones {
+.botones {
     display: flex;
     gap: 8px;
 }
 
-.acciones button {
+.editar,
+.eliminar {
     border: none;
-    border-radius: 8px;
     padding: 9px 12px;
+    border-radius: 7px;
     cursor: pointer;
     font-weight: bold;
 }
 
 .editar {
-    background: #fbbf24;
-    color: #422006;
+    background: #facc15;
 }
 
 .eliminar {
@@ -203,69 +185,52 @@ select:focus {
     color: white;
 }
 
-.vacia {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 22px;
+.vacio {
+    background: rgba(255,255,255,0.95);
+    padding: 18px;
+    border-radius: 12px;
     text-align: center;
-    border-radius: 15px;
-    color: #64748b;
-}
-
-.proximas {
-    margin-top: 30px;
-}
-
-.proximas h2 {
-    color: white;
+    color: #6b7280;
 }
 
 .proxima {
     background: #fff7ed;
     border-left: 5px solid #f97316;
-    border-radius: 10px;
-    padding: 13px;
-    margin-bottom: 9px;
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
 }
 
 .eliminando {
     opacity: 0;
-    transform: translateX(150px) scale(0.9);
+    transform: translateX(150px);
 }
 
 body.oscuro {
     background: linear-gradient(135deg, #071426, #172554);
-    color: white;
 }
 
-body.oscuro .panel,
+body.oscuro .encabezado,
+body.oscuro .formulario,
+body.oscuro .filtros,
 body.oscuro .tarea {
-    background: #172033;
+    background: #1e293b;
     color: white;
-}
-
-body.oscuro .encabezado h1 {
-    color: #60a5fa;
-}
-
-body.oscuro .encabezado p,
-body.oscuro .tarea-info p {
-    color: #cbd5e1;
 }
 
 body.oscuro input,
 body.oscuro select {
-    background: #263449;
+    background: #334155;
     color: white;
     border-color: #475569;
 }
 
-body.oscuro .modo {
-    background: white;
-    color: #111827;
+body.oscuro .tarea-info p {
+    color: #cbd5e1;
 }
 
-body.oscuro .vacia {
-    background: #172033;
+body.oscuro .vacio {
+    background: #1e293b;
     color: #cbd5e1;
 }
 
@@ -274,27 +239,24 @@ body.oscuro .proxima {
     color: white;
 }
 
+body.oscuro #modoOscuro {
+    background: white;
+    color: black;
+}
+
 @media (max-width: 700px) {
 
     .formulario {
         grid-template-columns: 1fr;
     }
 
+    #agregarTarea {
+        grid-column: 1;
+    }
+
     .tarea {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
-    }
-
-    .acciones {
-        width: 100%;
-    }
-
-    .acciones button {
-        flex: 1;
-    }
-
-    .encabezado h1 {
-        font-size: 26px;
     }
 }
