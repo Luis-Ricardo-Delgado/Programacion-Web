@@ -1,47 +1,42 @@
 // Luis Ricardo Delgado Sevilla
 
-const textoTarea = document.getElementById("textoTarea");
+const nombreTarea = document.getElementById("nombreTarea");
 const fechaTarea = document.getElementById("fechaTarea");
 const categoriaTarea = document.getElementById("categoriaTarea");
 
 const botonAgregar = document.getElementById("agregarTarea");
 const listaTareas = document.getElementById("listaTareas");
-const listaProximas = document.getElementById("listaProximas");
+const proximasTareas = document.getElementById("proximasTareas");
+
 const contador = document.getElementById("contador");
-const botonModo = document.getElementById("modo");
+const modoOscuro = document.getElementById("modoOscuro");
 
-let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
-let filtroActual = "Todas";
+let tareas = [];
+let categoriaSeleccionada = "Todas";
 
 
-function guardarTareas() {
-    localStorage.setItem("tareas", JSON.stringify(tareas));
-}
+botonAgregar.addEventListener("click", agregarTarea);
 
 
 function agregarTarea() {
 
-    const texto = textoTarea.value.trim();
-    const fecha = fechaTarea.value;
-    const categoria = categoriaTarea.value;
+    const nombre = nombreTarea.value.trim();
 
-    if (texto === "") {
-        alert("Escribe una tarea antes de agregarla.");
+    if (nombre === "") {
+        alert("Escribe una tarea.");
         return;
     }
 
-    const nuevaTarea = {
+    const tarea = {
         id: Date.now(),
-        texto: texto,
-        fecha: fecha,
-        categoria: categoria
+        nombre: nombre,
+        fecha: fechaTarea.value,
+        categoria: categoriaTarea.value
     };
 
-    tareas.push(nuevaTarea);
+    tareas.push(tarea);
 
-    guardarTareas();
-
-    textoTarea.value = "";
+    nombreTarea.value = "";
     fechaTarea.value = "";
 
     mostrarTareas();
@@ -54,78 +49,75 @@ function mostrarTareas() {
 
     const filtradas = tareas.filter(tarea => {
 
-        if (filtroActual === "Todas") {
+        if (categoriaSeleccionada === "Todas") {
             return true;
         }
 
-        return tarea.categoria === filtroActual;
+        return tarea.categoria === categoriaSeleccionada;
     });
 
 
     contador.textContent =
         tareas.length === 1
-            ? "1 tarea"
-            : tareas.length + " tareas";
+        ? "1 tarea"
+        : tareas.length + " tareas";
 
 
     if (filtradas.length === 0) {
 
-        listaTareas.innerHTML = `
-            <div class="vacia">
+        listaTareas.innerHTML =
+            `<div class="vacio">
                 No hay tareas en esta categoría.
-            </div>
-        `;
+            </div>`;
 
-        mostrarProximas();
-        return;
+    } else {
+
+        filtradas.forEach(tarea => {
+
+            const elemento = document.createElement("div");
+
+            elemento.className = "tarea";
+
+            elemento.innerHTML = `
+                <div class="tarea-info">
+
+                    <h3>${tarea.nombre}</h3>
+
+                    <p>
+                        Fecha límite:
+                        ${
+                            tarea.fecha
+                            ? convertirFecha(tarea.fecha)
+                            : "Sin fecha"
+                        }
+                    </p>
+
+                    <span class="categoria ${tarea.categoria}">
+                        ${tarea.categoria}
+                    </span>
+
+                </div>
+
+                <div class="botones">
+
+                    <button
+                        class="editar"
+                        onclick="editarTarea(${tarea.id})">
+                        Editar
+                    </button>
+
+                    <button
+                        class="eliminar"
+                        onclick="eliminarTarea(${tarea.id}, this)">
+                        Eliminar
+                    </button>
+
+                </div>
+            `;
+
+            listaTareas.appendChild(elemento);
+        });
     }
-
-
-    filtradas.forEach(tarea => {
-
-        const elemento = document.createElement("div");
-        elemento.className = "tarea";
-
-        const claseCategoria = tarea.categoria.toLowerCase();
-
-        elemento.innerHTML = `
-            <div class="tarea-info">
-
-                <h3>${tarea.texto}</h3>
-
-                <p>
-                    📅 ${
-                        tarea.fecha
-                            ? formatearFecha(tarea.fecha)
-                            : "Sin fecha límite"
-                    }
-                </p>
-
-                <span class="etiqueta ${claseCategoria}">
-                    ${tarea.categoria}
-                </span>
-
-            </div>
-
-            <div class="acciones">
-
-                <button
-                    class="editar"
-                    onclick="editarTarea(${tarea.id})">
-                    Editar
-                </button>
-
-                <button
-                    class="eliminar"
-                    onclick="eliminarTarea(${tarea.id}, this)">
-                    Eliminar
-                </button>
-
-            </div>
-        `;
-
-        listaTareas.appendChild(elemento);
-    });
 
     mostrarProximas();
 }
@@ -135,27 +127,22 @@ function editarTarea(id) {
 
     const tarea = tareas.find(t => t.id === id);
 
-    if (!tarea) {
-        return;
-    }
-
-    const nuevoTexto = prompt(
-        "Edita el nombre de la tarea:",
-        tarea.texto
+    const nuevoNombre = prompt(
+        "Editar tarea:",
+        tarea.nombre
     );
 
-    if (nuevoTexto === null) {
+    if (nuevoNombre === null) {
         return;
     }
 
-    if (nuevoTexto.trim() === "") {
+    if (nuevoNombre.trim() === "") {
         alert("La tarea no puede quedar vacía.");
         return;
     }
 
-    tarea.texto = nuevoTexto.trim();
+    tarea.nombre = nuevoNombre.trim();
 
-    guardarTareas();
     mostrarTareas();
 }
 
@@ -170,48 +157,45 @@ function eliminarTarea(id, boton) {
 
         tareas = tareas.filter(tarea => tarea.id !== id);
 
-        guardarTareas();
         mostrarTareas();
 
-    }, 350);
+    }, 400);
 }
 
 
 function mostrarProximas() {
 
-    listaProximas.innerHTML = "";
+    proximasTareas.innerHTML = "";
 
     const hoy = new Date();
+
     hoy.setHours(0, 0, 0, 0);
 
-    const proximas = tareas
-        .filter(tarea => {
+    const proximas = tareas.filter(tarea => {
 
-            if (!tarea.fecha) {
-                return false;
-            }
+        if (tarea.fecha === "") {
+            return false;
+        }
 
-            const fecha = new Date(tarea.fecha + "T00:00:00");
+        const fecha = new Date(
+            tarea.fecha + "T00:00:00"
+        );
 
-            const diferencia = fecha - hoy;
+        const diferencia = fecha - hoy;
 
-            const dias =
-                diferencia / (1000 * 60 * 60 * 24);
+        const dias =
+            diferencia / (1000 * 60 * 60 * 24);
 
-            return dias >= 0 && dias <= 3;
-        })
-        .sort((a, b) => {
-            return new Date(a.fecha) - new Date(b.fecha);
-        });
+        return dias >= 0 && dias <= 3;
+    });
 
 
     if (proximas.length === 0) {
 
-        listaProximas.innerHTML = `
-            <div class="vacia">
+        proximasTareas.innerHTML =
+            `<div class="vacio">
                 No hay tareas próximas a vencer.
-            </div>
-        `;
+            </div>`;
 
         return;
     }
@@ -220,75 +204,69 @@ function mostrarProximas() {
     proximas.forEach(tarea => {
 
         const elemento = document.createElement("div");
+
         elemento.className = "proxima";
 
         elemento.innerHTML = `
-            <strong>${tarea.texto}</strong>
+            <strong>${tarea.nombre}</strong>
             <br>
-            Vence: ${formatearFecha(tarea.fecha)}
+            Vence: ${convertirFecha(tarea.fecha)}
         `;
 
-        listaProximas.appendChild(elemento);
+        proximasTareas.appendChild(elemento);
     });
 }
 
 
-function formatearFecha(fecha) {
+function convertirFecha(fecha) {
 
     const partes = fecha.split("-");
 
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    return partes[2] + "/" +
+           partes[1] + "/" +
+           partes[0];
 }
 
 
 document.querySelectorAll(".filtro").forEach(boton => {
 
-    boton.addEventListener("click", () => {
+    boton.addEventListener("click", function() {
 
         document.querySelectorAll(".filtro")
             .forEach(b => b.classList.remove("activo"));
 
-        boton.classList.add("activo");
+        this.classList.add("activo");
 
-        filtroActual = boton.dataset.filtro;
+        categoriaSeleccionada =
+            this.dataset.categoria;
 
         mostrarTareas();
     });
 });
 
 
-botonModo.addEventListener("click", () => {
+modoOscuro.addEventListener("click", function() {
 
     document.body.classList.toggle("oscuro");
 
-    const oscuro =
-        document.body.classList.contains("oscuro");
+    if (document.body.classList.contains("oscuro")) {
 
-    botonModo.textContent =
-        oscuro ? "☀️" : "🌙";
+        modoOscuro.textContent = "☀️";
 
-    localStorage.setItem(
-        "modoOscuro",
-        oscuro
-    );
+    } else {
+
+        modoOscuro.textContent = "🌙";
+
+    }
 });
 
 
-if (localStorage.getItem("modoOscuro") === "true") {
+nombreTarea.addEventListener("keydown", function(evento) {
 
-    document.body.classList.add("oscuro");
-    botonModo.textContent = "☀️";
-}
-
-
-botonAgregar.addEventListener("click", agregarTarea);
-
-
-textoTarea.addEventListener("keydown", event => {
-
-    if (event.key === "Enter") {
+    if (evento.key === "Enter") {
         agregarTarea();
     }
+
 });
 
 
