@@ -1,0 +1,10 @@
+
+fastapi==0.115.12
+uvicorn==0.34.2
+sqlmodel==0.0.24
+redis==5.2.1
+python-multipart==0.0.20
+jsonschema==4.23.0
+pillow==11.3.0
+pytest==8.3.5
+httpx==0.28.1
