@@ -1,1 +1,83 @@
+<!-- Luis Ricardo Delgado Sevilla -->
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChivaChat | Pasión Rojiblanca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="stripes"></div>
+
+    <section id="login" class="login">
+        <div class="login-card">
+            <div class="logo">🐐</div>
+            <h1>Chiva<span>Chat</span></h1>
+            <p>La voz de la afición rojiblanca</p>
+
+            <form id="loginForm">
+                <input type="text" id="username"
+                    placeholder="Ingresa tu nombre"
+                    maxlength="25" required>
+                <button type="submit">Entrar al chat</button>
+            </form>
+
+            <p class="motto">1906 · Una pasión que nos une</p>
+        </div>
+    </section>
+
+    <main id="chat" class="chat-container" hidden>
+
+        <header class="header">
+            <div class="brand">
+                <div class="logo">🐐</div>
+                <div>
+                    <h1>Chiva<span>Chat</span></h1>
+                    <p>La voz de la afición rojiblanca</p>
+                </div>
+            </div>
+
+            <div class="online">
+                <span class="online-dot"></span>
+                <span id="users">0 conectados</span>
+            </div>
+        </header>
+
+        <div class="room">
+            <h2>🔴 Sala rojiblanca</h2>
+            <p id="currentUser"></p>
+        </div>
+
+        <div id="messages" class="messages">
+            <div class="notification">
+                ¡Bienvenido a ChivaChat!
+                Este es el espacio de la afición del Guadalajara.
+            </div>
+        </div>
+
+        <div id="typing" class="typing"></div>
+
+        <form id="messageForm" class="message-form">
+            <input type="text" id="messageInput"
+                placeholder="Escribe tu mensaje..."
+                maxlength="1000" autocomplete="off" required>
+            <button type="submit">Enviar ➤</button>
+        </form>
+
+        <footer>
+            <p>De visitante o de local, siempre vamos a estar.</p>
+            <small>Desarrollado por Luis Ricardo Delgado Sevilla</small>
+        </footer>
+
+    </main>
+
+    <div class="stripes bottom"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
