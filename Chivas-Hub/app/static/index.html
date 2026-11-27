@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#c8102e">
+    <title>Chivas Hub | 1906</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="brand">
+            CHIVAS<span>HUB</span>
+        </div>
+
+        <nav>
+            <a href="#plantilla">Plantilla</a>
+            <a href="#posiciones">Posiciones</a>
+            <a href="#ranking">Ranking</a>
+            <a href="/docs" target="_blank" rel="noopener">API</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="eyebrow">GUADALAJARA, JALISCO · 1906</span>
+
+            <h1>EL EQUIPO<br>DE MÉXICO</h1>
+
+            <p>
+                Administra la plantilla rojiblanca,
+                registra jugadores, consulta estadísticas
+                y califica a tus futbolistas favoritos.
+            </p>
+
+            <a href="#plantilla" class="btn primary">
+                Explorar plantilla
+            </a>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <section class="stats">
+            <div class="stat">
+                <span>👥</span>
+                <strong id="totalJugadores">0</strong>
+                <p>Jugadores</p>
+            </div>
+
+            <div class="stat">
+                <span>⚽</span>
+                <strong id="totalGoles">0</strong>
+                <p>Goles</p>
+            </div>
+
+            <div class="stat">
+                <span>👟</span>
+                <strong id="totalAsistencias">0</strong>
+                <p>Asistencias</p>
+            </div>
+
+            <div class="stat">
+                <span>⭐</span>
+                <strong id="promedioCalificacion">0</strong>
+                <p>Calificación promedio</p>
+            </div>
+        </section>
+
+        <section class="system-status">
+            <div>
+                <strong>Estado del sistema</strong>
+                <p>FastAPI + SQLite + Redis</p>
+            </div>
+
+            <span id="redisStatus">
+                Verificando Redis...
+            </span>
+        </section>
+
+        <section id="plantilla">
+
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">ORGULLO ROJIBLANCO</span>
+                    <h2>Plantilla de jugadores</h2>
+                </div>
+
+                <button class="btn primary" id="nuevoJugador">
+                    + Nuevo jugador
+                </button>
+            </div>
+
+            <div class="filters">
+                <input
+                    type="search"
+                    id="buscarJugador"
+                    placeholder="Buscar jugador..."
+                >
+
+                <select id="filtroPosicion">
+                    <option value="">Todas las posiciones</option>
+                </select>
+
+                <select id="filtroActivo">
+                    <option value="">Todos los jugadores</option>
+                    <option value="true">Activos</option>
+                    <option value="false">Inactivos</option>
+                </select>
+            </div>
+
+            <div id="listaJugadores" class="players-grid">
+                <p>Cargando jugadores...</p>
+            </div>
+
+        </section>
+
+        <section id="posiciones">
+
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">ORGANIZACIÓN DEL EQUIPO</span>
+                    <h2>Posiciones</h2>
+                </div>
+
+                <button class="btn primary" id="nuevaPosicion">
+                    + Nueva posición
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Posición</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaPosiciones"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <section id="ranking">
+
+            <div class="section-header">
+                <div>
+                    <span class="eyebrow">LOS MEJORES DEL REBAÑO</span>
+                    <h2>Ranking de jugadores</h2>
+                </div>
+
+                <button class="btn secondary" id="actualizarRanking">
+                    Actualizar ranking
+                </button>
+            </div>
+
+            <p id="cacheStatus" class="cache-info">
+                Consultando estadísticas...
+            </p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Puesto</th>
+                            <th>Jugador</th>
+                            <th>Dorsal</th>
+                            <th>Goles</th>
+                            <th>Asistencias</th>
+                            <th>Calificación</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaRanking"></tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <section class="leaders-grid">
+
+            <div class="panel">
+                <h2>⚽ Mejores goleadores</h2>
+                <div id="listaGoleadores"></div>
+            </div>
+
+            <div class="panel">
+                <h2>👟 Mejores asistentes</h2>
+                <div id="listaAsistencias"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <dialog id="modalJugador">
+
+        <form id="formJugador">
+
+            <div class="modal-header">
+                <h2 id="tituloJugador">Registrar jugador</h2>
+
+                <button type="button" class="close"
+                    data-close="modalJugador">
+                    ×
+                </button>
+            </div>
+
+            <input type="hidden" id="jugadorId">
+
+            <div class="form-grid">
+
+                <label>
+                    Nombre completo
+                    <input type="text" id="nombre"
+                        minlength="3" maxlength="100" required>
+                </label>
+
+                <label>
+                    Dorsal
+                    <input type="number" id="dorsal"
+                        min="1" max="99" required>
+                </label>
+
+                <label>
+                    Edad
+                    <input type="number" id="edad"
+                        min="15" max="50" required>
+                </label>
+
+                <label>
+                    Nacionalidad
+                    <input type="text" id="nacionalidad"
+                        value="Mexicana" maxlength="60" required>
+                </label>
+
+                <label>
+                    Posición
+                    <select id="posicionId" required></select>
+                </label>
+
+                <label>
+                    Partidos jugados
+                    <input type="number" id="partidos"
+                        min="0" value="0" required>
+                </label>
+
+                <label>
+                    Goles
+                    <input type="number" id="goles"
+                        min="0" value="0" required>
+                </label>
+
+                <label>
+                    Asistencias
+                    <input type="number" id="asistencias"
+                        min="0" value="0" required>
+                </label>
+
+                <label>
+                    Calificación
+                    <input type="number" id="calificacion"
+                        min="0" max="10" step="0.1"
+                        value="0" required>
+                </label>
+
+                <label>
+                    Estado
+                    <select id="activo">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </label>
+
+            </div>
+
+            <label class="file-label">
+                Fotografía del jugador
+                <input type="file" id="fotografia"
+                    accept="image/jpeg,image/png,image/webp">
+                <small>JPG, PNG o WEBP. Máximo 5 MB.</small>
+            </label>
+
+            <div class="modal-actions">
+
+                <button type="button" class="btn secondary"
+                    data-close="modalJugador">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn primary">
+                    Guardar jugador
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <dialog id="modalPosicion">
+
+        <form id="formPosicion">
+
+            <div class="modal-header">
+                <h2 id="tituloPosicion">Nueva posición</h2>
+
+                <button type="button" class="close"
+                    data-close="modalPosicion">
+                    ×
+                </button>
+            </div>
+
+            <input type="hidden" id="editarPosicionId">
+
+            <label>
+                Nombre de la posición
+                <input type="text" id="nombrePosicion"
+                    minlength="3" maxlength="50" required>
+            </label>
+
+            <label>
+                Descripción
+                <textarea id="descripcionPosicion"
+                    maxlength="300" rows="4"></textarea>
+            </label>
+
+            <div class="modal-actions">
+
+                <button type="button" class="btn secondary"
+                    data-close="modalPosicion">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn primary">
+                    Guardar posición
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <div id="notificacion" role="status" aria-live="polite"></div>
+
+    <footer>
+        <h2>CHIVAS HUB · 1906</h2>
+
+        <p>De visitante o de local, siempre vamos a estar.</p>
+
+        <p>Desarrollado por Luis Ricardo Delgado Sevilla</p>
+
+        <small>
+            Proyecto académico | FastAPI · Python · SQLite · Redis
+        </small>
+
+        <a href="/docs" target="_blank" rel="noopener">
+            Documentación de la API
+        </a>
+    </footer>
+
+    <script src="/static/script.js"></script>
+
+</body>
+</html>
