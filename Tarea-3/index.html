@@ -1,497 +1,296 @@
 <!-- Luis Ricardo Delgado Sevilla -->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Lista de Tareas</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css?v=2">
 </head>
-
 <body>
 
-    <main class="app">
+<main class="app">
 
-        <section class="panel-principal">
+    <section class="panel">
+        <header>
+            <div>
+                <p class="subtitulo">ORGANIZADOR PERSONAL</p>
+                <h1>Mi Lista de Tareas</h1>
+                <p class="descripcion">Organiza tus pendientes y lleva el control de tus actividades.</p>
+            </div>
+            <button id="modo" class="modo">🌙</button>
+        </header>
 
-            <div class="encabezado">
-
-                <div>
-                    <p class="subtitulo">ORGANIZADOR PERSONAL</p>
-                    <h1>Mi Lista de Tareas</h1>
-                    <p class="descripcion">
-                        Organiza tus pendientes y lleva el control de tus actividades.
-                    </p>
-                </div>
-
-                <button id="botonModo" class="boton-modo" title="Cambiar modo">
-                    🌙
-                </button>
-
+        <div class="formulario">
+            <div class="campo">
+                <label>Nueva tarea</label>
+                <input type="text" id="texto" placeholder="Ej. Terminar tarea de programación">
             </div>
 
-
-            <div class="formulario">
-
-                <div class="campo tarea-campo">
-                    <label for="textoTarea">Nueva tarea</label>
-
-                    <input
-                        type="text"
-                        id="textoTarea"
-                        placeholder="Ej. Terminar tarea de programación"
-                    >
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="fechaTarea">Fecha límite</label>
-
-                    <input
-                        type="date"
-                        id="fechaTarea"
-                    >
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="categoriaTarea">Categoría</label>
-
-                    <select id="categoriaTarea">
-                        <option value="Escuela">📚 Escuela</option>
-                        <option value="Trabajo">💼 Trabajo</option>
-                        <option value="Personal">🏠 Personal</option>
-                    </select>
-
-                </div>
-
+            <div class="campo">
+                <label>Fecha límite</label>
+                <input type="date" id="fecha">
             </div>
 
-
-            <button id="agregarTarea" class="boton-agregar">
-                ＋ Agregar nueva tarea
-            </button>
-
-
-            <div class="filtros">
-
-                <span>Mostrar:</span>
-
-                <button class="filtro activo" data-filtro="Todas">
-                    Todas
-                </button>
-
-                <button class="filtro" data-filtro="Escuela">
-                    Escuela
-                </button>
-
-                <button class="filtro" data-filtro="Trabajo">
-                    Trabajo
-                </button>
-
-                <button class="filtro" data-filtro="Personal">
-                    Personal
-                </button>
-
+            <div class="campo">
+                <label>Categoría</label>
+                <select id="categoria">
+                    <option value="Escuela">📚 Escuela</option>
+                    <option value="Trabajo">💼 Trabajo</option>
+                    <option value="Personal">🏠 Personal</option>
+                </select>
             </div>
+        </div>
 
-        </section>
+        <button class="agregar" id="agregar">＋ Agregar nueva tarea</button>
 
+        <div class="filtros">
+            <span>Mostrar:</span>
+            <button class="filtro activo" data-categoria="Todas">Todas</button>
+            <button class="filtro" data-categoria="Escuela">Escuela</button>
+            <button class="filtro" data-categoria="Trabajo">Trabajo</button>
+            <button class="filtro" data-categoria="Personal">Personal</button>
+        </div>
+    </section>
 
-        <section class="resumen">
-
-            <div class="tarjeta-resumen">
-                <span class="icono-resumen">📋</span>
-
-                <div>
-                    <p>Total de tareas</p>
-                    <strong id="totalTareas">0</strong>
-                </div>
+    <section class="resumen">
+        <div class="estadistica">
+            <div class="icono">📋</div>
+            <div>
+                <p>Total de tareas</p>
+                <strong id="total">0</strong>
             </div>
+        </div>
 
-
-            <div class="tarjeta-resumen">
-                <span class="icono-resumen">⏰</span>
-
-                <div>
-                    <p>Próximas a vencer</p>
-                    <strong id="totalProximas">0</strong>
-                </div>
+        <div class="estadistica">
+            <div class="icono">⏰</div>
+            <div>
+                <p>Próximas a vencer</p>
+                <strong id="totalProximas">0</strong>
             </div>
+        </div>
+    </section>
 
-        </section>
-
-
-        <section class="seccion-tareas">
-
-            <div class="titulo-seccion">
-                <div>
-                    <p class="subtitulo-seccion">TUS ACTIVIDADES</p>
-                    <h2>Mis tareas</h2>
-                </div>
-
-                <span id="contador">0 tareas</span>
+    <section class="panel">
+        <div class="encabezado">
+            <div>
+                <p class="subtitulo">TUS ACTIVIDADES</p>
+                <h2>Mis tareas</h2>
             </div>
+            <span id="contador"></span>
+        </div>
 
+        <div id="lista"></div>
+    </section>
 
-            <div id="listaTareas" class="lista-tareas"></div>
+    <section class="panel">
+        <p class="subtitulo">RECORDATORIOS</p>
+        <h2>Próximas a vencer</h2>
+        <div id="proximas"></div>
+    </section>
 
-        </section>
+    <footer>
+        Desarrollado por Luis Ricardo Delgado Sevilla
+    </footer>
 
+</main>
 
-        <section class="seccion-proximas">
-
-            <div class="titulo-seccion">
-                <div>
-                    <p class="subtitulo-seccion">RECORDATORIOS</p>
-                    <h2>Próximas a vencer</h2>
-                </div>
-            </div>
-
-            <div id="listaProximas"></div>
-
-        </section>
-
-    </main>
-
-    <script>
-// Luis Ricardo Delgado Sevilla
-
-const textoTarea = document.getElementById("textoTarea");
-const fechaTarea = document.getElementById("fechaTarea");
-const categoriaTarea = document.getElementById("categoriaTarea");
-
-const botonAgregar = document.getElementById("agregarTarea");
-const botonModo = document.getElementById("botonModo");
-
-const listaTareas = document.getElementById("listaTareas");
-const listaProximas = document.getElementById("listaProximas");
-
-const contador = document.getElementById("contador");
-const totalTareas = document.getElementById("totalTareas");
-const totalProximas = document.getElementById("totalProximas");
+<script>
+const texto = document.getElementById("texto");
+const fecha = document.getElementById("fecha");
+const categoria = document.getElementById("categoria");
+const lista = document.getElementById("lista");
+const proximas = document.getElementById("proximas");
+const modo = document.getElementById("modo");
 
 let tareas = JSON.parse(localStorage.getItem("tareasLuis")) || [];
-let filtroActual = "Todas";
+let filtro = "Todas";
 
-
-function guardarTareas() {
+function guardar() {
     localStorage.setItem("tareasLuis", JSON.stringify(tareas));
 }
 
-
-function agregarTarea() {
-
-    const texto = textoTarea.value.trim();
-
-    if (texto === "") {
+function agregar() {
+    if (!texto.value.trim()) {
         alert("Escribe una tarea.");
         return;
     }
 
-    const nuevaTarea = {
+    tareas.push({
         id: Date.now(),
-        texto: texto,
-        fecha: fechaTarea.value,
-        categoria: categoriaTarea.value
-    };
+        texto: texto.value.trim(),
+        fecha: fecha.value,
+        categoria: categoria.value
+    });
 
-    tareas.push(nuevaTarea);
+    guardar();
 
-    guardarTareas();
+    texto.value = "";
+    fecha.value = "";
 
-    textoTarea.value = "";
-    fechaTarea.value = "";
-
-    mostrarTareas();
+    mostrar();
 }
 
+function formatearFecha(valor) {
+    if (!valor) return "Sin fecha límite";
+    return valor.split("-").reverse().join("/");
+}
 
-function mostrarTareas() {
+function escapar(valor) {
+    const elemento = document.createElement("span");
+    elemento.textContent = valor;
+    return elemento.innerHTML;
+}
 
-    listaTareas.innerHTML = "";
+function mostrar() {
+    lista.innerHTML = "";
 
-    let filtradas = tareas;
+    const filtradas = filtro === "Todas"
+        ? tareas
+        : tareas.filter(t => t.categoria === filtro);
 
-    if (filtroActual !== "Todas") {
-        filtradas = tareas.filter(
-            tarea => tarea.categoria === filtroActual
-        );
-    }
+    document.getElementById("total").textContent = tareas.length;
 
-
-    totalTareas.textContent = tareas.length;
-
-    contador.textContent =
-        tareas.length === 1
-        ? "1 tarea"
-        : tareas.length + " tareas";
-
+    document.getElementById("contador").textContent =
+        filtradas.length + (filtradas.length === 1 ? " tarea" : " tareas");
 
     if (filtradas.length === 0) {
+        lista.innerHTML = '<div class="vacio">No hay tareas en esta categoría.</div>';
+    }
 
-        listaTareas.innerHTML = `
-            <div class="vacio">
-                No hay tareas en esta categoría.
+    filtradas.forEach(tarea => {
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "tarea";
+
+        tarjeta.innerHTML = `
+            <div class="informacion">
+                <h3>${escapar(tarea.texto)}</h3>
+                <div class="detalles">
+                    <span>📅 ${formatearFecha(tarea.fecha)}</span>
+                    <span class="categoria ${tarea.categoria}">
+                        ${tarea.categoria}
+                    </span>
+                </div>
+            </div>
+
+            <div class="acciones">
+                <button class="editar" onclick="editar(${tarea.id})">
+                    ✏️ Editar
+                </button>
+
+                <button class="eliminar" onclick="eliminar(${tarea.id}, this)">
+                    🗑️ Eliminar
+                </button>
             </div>
         `;
 
-    } else {
-
-        filtradas.forEach(tarea => {
-
-            const tarjeta = document.createElement("div");
-
-            tarjeta.className = "tarea";
-
-            const fecha =
-                tarea.fecha
-                ? formatearFecha(tarea.fecha)
-                : "Sin fecha límite";
-
-
-            tarjeta.innerHTML = `
-                <div class="tarea-info">
-
-                    <h3>${tarea.texto}</h3>
-
-                    <div class="detalles-tarea">
-
-                        <span class="fecha">
-                            📅 ${fecha}
-                        </span>
-
-                        <span class="categoria ${tarea.categoria}">
-                            ${tarea.categoria}
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="acciones">
-
-                    <button
-                        class="editar"
-                        onclick="editarTarea(${tarea.id})">
-                        ✏️ Editar
-                    </button>
-
-                    <button
-                        class="eliminar"
-                        onclick="eliminarTarea(${tarea.id}, this)">
-                        🗑️ Eliminar
-                    </button>
-
-                </div>
-            `;
-
-            listaTareas.appendChild(tarjeta);
-        });
-    }
+        lista.appendChild(tarjeta);
+    });
 
     mostrarProximas();
 }
 
+function editar(id) {
+    const tarea = tareas.find(t => t.id === id);
 
-function editarTarea(id) {
+    if (!tarea) return;
 
-    const tarea = tareas.find(
-        tarea => tarea.id === id
-    );
+    const nuevoTexto = prompt("Edita tu tarea:", tarea.texto);
 
-    if (!tarea) {
-        return;
+    if (nuevoTexto !== null && nuevoTexto.trim()) {
+        tarea.texto = nuevoTexto.trim();
+        guardar();
+        mostrar();
     }
-
-    const nuevoTexto = prompt(
-        "Edita la tarea:",
-        tarea.texto
-    );
-
-    if (nuevoTexto === null) {
-        return;
-    }
-
-    if (nuevoTexto.trim() === "") {
-        alert("La tarea no puede estar vacía.");
-        return;
-    }
-
-    tarea.texto = nuevoTexto.trim();
-
-    guardarTareas();
-
-    mostrarTareas();
 }
 
-
-function eliminarTarea(id, boton) {
-
+function eliminar(id, boton) {
     const tarjeta = boton.closest(".tarea");
 
     tarjeta.classList.add("eliminando");
 
     setTimeout(() => {
-
-        tareas = tareas.filter(
-            tarea => tarea.id !== id
-        );
-
-        guardarTareas();
-
-        mostrarTareas();
-
+        tareas = tareas.filter(t => t.id !== id);
+        guardar();
+        mostrar();
     }, 350);
 }
 
-
 function mostrarProximas() {
-
-    listaProximas.innerHTML = "";
+    proximas.innerHTML = "";
 
     const hoy = new Date();
-
     hoy.setHours(0, 0, 0, 0);
 
-    const proximas = tareas.filter(tarea => {
+    const limite = new Date(hoy);
+    limite.setDate(limite.getDate() + 3);
 
-        if (!tarea.fecha) {
-            return false;
-        }
+    const pendientes = tareas.filter(tarea => {
+        if (!tarea.fecha) return false;
 
-        const fecha = new Date(
-            tarea.fecha + "T00:00:00"
-        );
+        const vencimiento = new Date(tarea.fecha + "T00:00:00");
 
-        const diferencia = fecha - hoy;
-
-        const dias =
-            diferencia / (1000 * 60 * 60 * 24);
-
-        return dias >= 0 && dias <= 3;
+        return vencimiento >= hoy && vencimiento <= limite;
     });
 
+    document.getElementById("totalProximas").textContent =
+        pendientes.length;
 
-    totalProximas.textContent = proximas.length;
-
-
-    if (proximas.length === 0) {
-
-        listaProximas.innerHTML = `
-            <div class="vacio">
-                No tienes tareas próximas a vencer.
-            </div>
-        `;
-
+    if (pendientes.length === 0) {
+        proximas.innerHTML = '<div class="vacio">No tienes tareas próximas a vencer.</div>';
         return;
     }
 
-
-    proximas.forEach(tarea => {
-
+    pendientes.forEach(tarea => {
         const tarjeta = document.createElement("div");
 
         tarjeta.className = "proxima";
 
         tarjeta.innerHTML = `
-            <strong>
-                ⏰ ${tarea.texto}
-            </strong>
-
-            <p>
-                Vence el ${formatearFecha(tarea.fecha)}
-                · ${tarea.categoria}
-            </p>
+            <strong>⏰ ${escapar(tarea.texto)}</strong>
+            <p>Vence el ${formatearFecha(tarea.fecha)} · ${tarea.categoria}</p>
         `;
 
-        listaProximas.appendChild(tarjeta);
+        proximas.appendChild(tarjeta);
     });
 }
 
-
-function formatearFecha(fecha) {
-
-    const partes = fecha.split("-");
-
-    return `${partes[2]}/${partes[1]}/${partes[0]}`;
-}
-
-
-document
-.querySelectorAll(".filtro")
-.forEach(boton => {
-
-    boton.addEventListener("click", function() {
-
-        document
-        .querySelectorAll(".filtro")
-        .forEach(b => {
+document.querySelectorAll(".filtro").forEach(boton => {
+    boton.addEventListener("click", () => {
+        document.querySelectorAll(".filtro").forEach(b => {
             b.classList.remove("activo");
         });
 
-        this.classList.add("activo");
-
-        filtroActual = this.dataset.filtro;
-
-        mostrarTareas();
+        boton.classList.add("activo");
+        filtro = boton.dataset.categoria;
+        mostrar();
     });
 });
 
+document.getElementById("agregar").addEventListener("click", agregar);
 
-botonAgregar.addEventListener("click", agregarTarea);
-
-
-textoTarea.addEventListener("keydown", function(evento) {
-
-    if (evento.key === "Enter") {
-        agregarTarea();
-    }
+texto.addEventListener("keydown", evento => {
+    if (evento.key === "Enter") agregar();
 });
 
-
-botonModo.addEventListener("click", function() {
-
+modo.addEventListener("click", () => {
     document.body.classList.toggle("oscuro");
 
-    const oscuro =
-        document.body.classList.contains("oscuro");
+    const oscuro = document.body.classList.contains("oscuro");
 
-    if (oscuro) {
+    modo.textContent = oscuro ? "☀️" : "🌙";
 
-        botonModo.textContent = "☀️";
-
-    } else {
-
-        botonModo.textContent = "🌙";
-
-    }
-
-    localStorage.setItem(
-        "modoOscuroLuis",
-        oscuro
-    );
+    localStorage.setItem("modoOscuroLuis", oscuro);
 });
 
-
 if (localStorage.getItem("modoOscuroLuis") === "true") {
-
     document.body.classList.add("oscuro");
-
-    botonModo.textContent = "☀️";
+    modo.textContent = "☀️";
 }
 
-
-mostrarTareas();
-
+mostrar();
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
