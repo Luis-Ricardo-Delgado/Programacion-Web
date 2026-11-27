@@ -1,1 +1,428 @@
+/* Luis Ricardo Delgado Sevilla */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --fondo: #eaf1ff;
+    --panel: #ffffff;
+    --texto: #172b4d;
+    --secundario: #64748b;
+    --azul: #2563eb;
+    --borde: #dbe4f0;
+    --campo: #f8fafc;
+    --sombra: 0 8px 25px rgba(30, 64, 175, 0.08);
+}
+
+body.oscuro {
+    --fondo: #0f172a;
+    --panel: #1e293b;
+    --texto: #f1f5f9;
+    --secundario: #94a3b8;
+    --azul: #3b82f6;
+    --borde: #334155;
+    --campo: #0f172a;
+    --sombra: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    min-height: 100vh;
+    padding: 40px 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.app {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.panel-principal,
+.seccion-tareas,
+.seccion-proximas {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--sombra);
+    margin-bottom: 24px;
+    border: 1px solid var(--borde);
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.subtitulo,
+.subtitulo-seccion {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--azul);
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    color: var(--secundario);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.boton-modo {
+    background: var(--campo);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    min-width: 48px;
+    height: 48px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--campo);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+}
+
+.boton-agregar {
+    width: 100%;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.25);
+}
+
+.filtros {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.filtros span {
+    font-size: 14px;
+    color: var(--secundario);
+    font-weight: 600;
+}
+
+.filtro {
+    padding: 9px 18px;
+    background: var(--campo);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.filtro.activo {
+    background: var(--azul);
+    color: white;
+    border-color: var(--azul);
+}
+
+.resumen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.tarjeta-resumen {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--panel);
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+}
+
+.icono-resumen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: #dbeafe;
+    border-radius: 15px;
+    font-size: 28px;
+}
+
+.tarjeta-resumen p {
+    color: var(--secundario);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.tarjeta-resumen strong {
+    font-size: 32px;
+    color: var(--azul);
+}
+
+.titulo-seccion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+#contador {
+    background: var(--campo);
+    border: 1px solid var(--borde);
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: var(--secundario);
+    font-size: 13px;
+}
+
+.lista-tareas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tarea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid var(--borde);
+    border-left: 5px solid var(--azul);
+    border-radius: 12px;
+    background: var(--campo);
+    animation: aparecer 0.3s ease;
+}
+
+.tarea-info {
+    min-width: 0;
+}
+
+.tarea-info h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
+}
+
+.detalles-tarea {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.fecha {
+    font-size: 13px;
+    color: var(--secundario);
+}
+
+.categoria {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.Escuela {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.Trabajo {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.Personal {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.editar,
+.eliminar {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.editar {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.eliminar {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.vacio {
+    text-align: center;
+    padding: 35px 15px;
+    color: var(--secundario);
+    border: 2px dashed var(--borde);
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.proxima {
+    background: var(--campo);
+    border: 1px solid var(--borde);
+    border-left: 5px solid #f59e0b;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+.proxima strong {
+    font-size: 16px;
+}
+
+.proxima p {
+    color: var(--secundario);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.eliminando {
+    animation: desaparecer 0.35s forwards;
+    pointer-events: none;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes desaparecer {
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+body.oscuro input,
+body.oscuro select {
+    color-scheme: dark;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-principal,
+    .seccion-tareas,
+    .seccion-proximas {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .tarea {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .acciones {
+        width: 100%;
+    }
+
+    .acciones button {
+        flex: 1;
+    }
+
+    .filtro {
+        padding: 8px 12px;
+    }
+}
