@@ -1,1 +1,14 @@
-
+{
+  "name": "chivachat",
+  "version": "1.0.0",
+  "description": "Chat en tiempo real para aficionados de Chivas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Luis Ricardo Delgado Sevilla",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
